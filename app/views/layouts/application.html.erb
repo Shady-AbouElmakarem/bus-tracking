@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Project</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= yield %>
+    <br /><br />
+    <% if current_admin %>
+      Signed in as admin: <%= current_admin["name"] %> | <%= link_to "Logout", '/admins/logout' %>
+    <% elsif current_user %>
+      Signed in as user: <%= current_user["uid"] %> | <%= link_to "Logout", '/users/logout' %>
+    <% end %>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+<!-- app/views/sessions/new.html.erb -->
+
+<h1>Login</h1>
+
+<%= form_tag '/admins/login' do %>
+
+  name: <%= text_field_tag :name %>
+  Password: <%= password_field_tag :password %>
+  <%= submit_tag "Submit" %>
+
+<% end %>

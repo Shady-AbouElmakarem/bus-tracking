@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>View Admins</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Master</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% unless @admins== nil %>
+      <% @admins.each do |admin_id, values| %>
+        <tr>
+          <td><%= values["name"] %></td>
+          <td><%= values["master"] %></td>
+          <td><%= link_to 'Destroy', {:controller => "admins", :action => :destroy, :id => admin_id },method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin', new_admin_path %>

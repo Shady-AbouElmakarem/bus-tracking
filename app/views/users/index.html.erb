@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>View Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Uid</th>
+      <th>Password</th>
+      <th>Bus</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% unless @users== nil %>
+      <% @users.each do |user_id, values| %>
+        <tr>
+          <td><%= values["uid"] %></td>
+          <td><%= values["password"] %></td>
+          <td><%= values["bus"] %></td>
+          <td><%= link_to 'Destroy', {:controller => "users", :action => :destroy, :id => user_id },method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User', new_user_path %>
