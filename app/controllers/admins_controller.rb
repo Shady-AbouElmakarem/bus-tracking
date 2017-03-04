@@ -4,7 +4,6 @@ class AdminsController < ApplicationController
 
   # GET /users/home
   def home
-
   end
 
   # GET /admins

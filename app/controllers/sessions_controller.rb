@@ -7,14 +7,18 @@ class SessionsController < ApplicationController
 
   def create
     @admin_id = find_id(firebase.get("/Admins").body,"name",params[:name])
+    unless @admin_id == nil
     # If the admin exists AND the password entered is correct.
-    @admin = firebase.get("/Admins/"+@admin_id).body
-    if @admin["password"] == params[:password]
-      session[:admin_id] = @admin_id
-      redirect_to '/admins'
+      @admin = firebase.get("/Admins/"+@admin_id).body
+      if @admin["password"] == params[:password]
+        session[:admin_id] = @admin_id
+        redirect_to '/admins'
+      else
+      # If admin's login doesn't work, send them back to the login form.
+      redirect_to '/admins/login'
+      end
     else
-    # If admin's login doesn't work, send them back to the login form.
-    redirect_to '/admins/login'
+      redirect_to '/admins/login'
     end
   end
 
@@ -28,14 +32,18 @@ class SessionsController < ApplicationController
 
   def create_user
     @user_id = find_id(firebase.get("/Users").body,"uid",params[:uid])
-    # If the user exists AND the password entered is correct.
-    @user = firebase.get("/Users/"+@user_id).body
-    if @user["password"] == params[:password]
-      session[:user_id] = @user_id
-      redirect_to '/users'
+    unless @admin_id == nil
+      # If the user exists AND the password entered is correct.
+      @user = firebase.get("/Users/"+@user_id).body
+      if @user["password"] == params[:password]
+        session[:user_id] = @user_id
+        redirect_to '/users'
+      else
+      # If user's login doesn't work, send them back to the login form.
+      redirect_to '/users/login'
+      end
     else
-    # If user's login doesn't work, send them back to the login form.
-    redirect_to '/users/login'
+      redirect_to '/users/login'
     end
   end
 

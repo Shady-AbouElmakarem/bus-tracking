@@ -39,8 +39,11 @@ class ApplicationController < ActionController::Base
   def find_id(table_hash,item_key,item_value)
     table_hash.each do |id_key,id_value|
       id_value.each do |id_value_key, id_value_value|
-        return id_key if id_value_key == item_key && id_value_value == item_value
+        if id_value_key == item_key && id_value_value == item_value
+          return id_key
+        end
       end
     end
+    return nil
   end
 end
