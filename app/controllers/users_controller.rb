@@ -1,11 +1,25 @@
 class UsersController < ApplicationController
-  before_action :authorize_admin, except: [:home]
-  before_action :authorize_user, only: [:home]
+  # before_action :authorize_admin, except: [:home]
+  # before_action :authorize_user, only: [:home]
+
   # GET /users/home
   def home
 
   end
 
+  # POST /admins/home
+  def update
+    unless params[:new_password] == nil
+      @response=firebase.update("/Users/"+session[:user_id],{password:params[:new_password]})
+      respond_to do |format|
+        if @response.success?
+          format.html { redirect_to '/users/update', notice: 'Password Changed successfully.' }
+        else
+          format.html { redirect_to '/users/update', notice: 'Error.'}
+        end
+      end
+    end
+  end
 
   # GET /users
   # GET /users.json
@@ -16,36 +30,18 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
   end
 
   # POST /users
   # POST /users.json
   def create
-    @user = User.new()
-    @response=firebase.push("/Users",{uid: user_params[:uid], password: 12345, bus: user_params[:bus]})
+    @response=firebase.push("/Users",{uid: params[:uid], password: 12345, bus: params[:bus]})
 
     respond_to do |format|
       if @response.success?
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
+        format.html { redirect_to '/users/new', notice: 'User was successfully created.' }
       else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
-  def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.html { redirect_to '/users/new', notice: 'Error.' }
       end
     end
   end
@@ -59,11 +55,4 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  private
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:uid, :bus)
-    end
 end

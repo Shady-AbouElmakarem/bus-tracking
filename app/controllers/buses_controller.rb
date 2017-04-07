@@ -1,5 +1,6 @@
 class BusesController < ApplicationController
-  before_action :authorize_admin
+  # before_action :authorize_admin
+
   # GET /buses
   # GET /buses.json
   def index
@@ -8,37 +9,18 @@ class BusesController < ApplicationController
 
   # GET /buses/new
   def new
-    @bus = Bus.new
   end
 
   # POST /buses
   # POST /buses.json
   def create
-    @bus = Bus.new()
-    @response=firebase.push("/Buses",{number: bus_params[:number], route: bus_params[:route]})
-
+    @response=firebase.push("/Buses",{number: params[:number], route: params[:route]})
 
     respond_to do |format|
       if @response.success?
-        format.html { redirect_to @bus, notice: 'Bus was successfully created.' }
-        format.json { render :show, status: :created, location: @bus }
+        format.html { redirect_to '/buses/new', notice: 'Bus was successfully created.' }
       else
-        format.html { render :new }
-        format.json { render json: @bus.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /buses/1
-  # PATCH/PUT /buses/1.json
-  def update
-    respond_to do |format|
-      if @bus.update(bus_params)
-        format.html { redirect_to @bus, notice: 'Bus was successfully updated.' }
-        format.json { render :show, status: :ok, location: @bus }
-      else
-        format.html { render :edit }
-        format.json { render json: @bus.errors, status: :unprocessable_entity }
+        format.html { redirect_to '/buses/new', notice: 'Error' }
       end
     end
   end
@@ -52,10 +34,4 @@ class BusesController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def bus_params
-      params.require(:bus).permit(:number, :route)
-    end
 end

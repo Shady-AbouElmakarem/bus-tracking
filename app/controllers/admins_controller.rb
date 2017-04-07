@@ -1,9 +1,24 @@
 class AdminsController < ApplicationController
-  before_action :authorize_master_admin, except: [:home]
-  before_action :authorize_admin, only: [:home]
+  # before_action :authorize_master_admin, except: [:home, :update]
+  # before_action :authorize_admin, only: [:home, :update]
 
-  # GET /users/home
+  # GET /admins/home
   def home
+
+  end
+
+  # POST /admins/home
+  def update
+    unless params[:new_password] == nil
+      @response=firebase.update("/Admins/"+session[:admin_id],{password:params[:new_password]})
+      respond_to do |format|
+        if @response.success?
+          format.html { redirect_to '/admins/update', notice: 'Password Changed successfully.' }
+        else
+          format.html { redirect_to '/admins/update', notice: 'Error.'}
+        end
+      end
+    end
   end
 
   # GET /admins
@@ -14,36 +29,18 @@ class AdminsController < ApplicationController
 
   # GET /admins/new
   def new
-    @admin= Admin.new
   end
 
   # POST /admins
   # POST /admins.json
   def create
-    @admin = Admin.new()
-    @response=firebase.push("/Admins",{name: admin_params[:name], password: admin_params[:password], master: admin_params[:master]})
+    @response=firebase.push("/Admins",{name: params[:name], password: params[:password], master: params[:master]})
 
     respond_to do |format|
       if @response.success?
-        format.html { redirect_to @admin, notice: 'Admin was successfully created.' }
-        format.json { render :show, status: :created, location: @admin }
+        format.html { redirect_to '/admins/new', notice: 'Admin was successfully created.' }
       else
-        format.html { render :new }
-        format.json { render json: @admin.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /admins/1
-  # PATCH/PUT /admins/1.json
-  def update
-    respond_to do |format|
-      if @admin.update(admin_params)
-        format.html { redirect_to @admin, notice: 'Admin was successfully updated.' }
-        format.json { render :show, status: :ok, location: @admin }
-      else
-        format.html { render :edit }
-        format.json { render json: @admin.errors, status: :unprocessable_entity }
+        format.html { redirect_to '/admins/new', notice: 'Error.'}
       end
     end
   end
@@ -57,10 +54,4 @@ class AdminsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def admin_params
-      params.require(:admin).permit(:name, :password, :master)
-    end
 end

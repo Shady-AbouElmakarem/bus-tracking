@@ -12,7 +12,11 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_master_admin
+    if current_admin
       redirect_to '/admins/home' unless current_admin["master"]=="1"
+    else
+      redirect_to '/admins/login'
+    end
   end
 
   def current_user

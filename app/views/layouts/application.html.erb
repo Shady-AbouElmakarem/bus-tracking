@@ -9,6 +9,9 @@
   </head>
 
   <body>
+    <% if flash[:notice] %>
+      <div class="notice"><%= flash[:notice] %></div>
+    <% end %>
     <%= yield %>
     <br /><br />
     <% if current_admin %>
@@ -16,6 +19,6 @@
     <% elsif current_user %>
       Signed in as user: <%= current_user["uid"] %> | <%= link_to "Logout", '/users/logout' %>
     <% end %>
-    
+
   </body>
 </html>

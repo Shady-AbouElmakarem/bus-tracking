@@ -1,6 +1,7 @@
-<div id="map" style="height: 80vh; width: 100%;">
-</div>
+<div id="map" style="height: 80vh; width: 100%;"></div>
 <div id="arrival"></div>
+<%= link_to "Change password", "update" %>
+
 <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-xyrWqgKry9NJuHmZBt557-T5tmxgZbc&callback=initMap">
@@ -17,15 +18,8 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-xyrWqgKry9NJuHmZBt557-T
   firebase.initializeApp(config);
   var database = firebase.database();
   var ref = firebase.database().ref();
-
-
-
-
-
-
-
+  // Google Map
   function initMap() {
-
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -33,7 +27,6 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-xyrWqgKry9NJuHmZBt557-T
       minZoom: 10,
     });
     ref.on("value", function(snapshot) {
-
       var latitude = snapshot.val().gps.latitude;
       var longitude = snapshot.val().gps.longitude;
       var start = {lat: latitude,lng: longitude};//
@@ -65,5 +58,4 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-xyrWqgKry9NJuHmZBt557-T
       }
     });
   }
-
 </script>

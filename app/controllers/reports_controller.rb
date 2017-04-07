@@ -1,5 +1,6 @@
 class ReportsController < ApplicationController
-  before_action :authorize_user
+  # before_action :authorize_user
+
   # GET /reports
   # GET /reports.json
   def index
@@ -8,36 +9,18 @@ class ReportsController < ApplicationController
 
   # GET /reports/new
   def new
-    @report = Report.new
   end
 
   # POST /reports
   # POST /reports.json
   def create
-    @report = Report.new()
-    @response=firebase.push("/Reports",{uid: report_params[:uid], body: report_params[:body]})
+    @response=firebase.push("/Reports",{uid: current_user, body: params[:body]})
 
     respond_to do |format|
       if @response.success?
-        format.html { redirect_to @report, notice: 'Report was successfully created.' }
-        format.json { render :show, status: :created, location: @report }
+        format.html { redirect_to '/reports/new', notice: 'Report was successfully created.' }
       else
-        format.html { render :new }
-        format.json { render json: @report.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /reports/1
-  # PATCH/PUT /reports/1.json
-  def update
-    respond_to do |format|
-      if @report.update(report_params)
-        format.html { redirect_to @report, notice: 'Report was successfully updated.' }
-        format.json { render :show, status: :ok, location: @report }
-      else
-        format.html { render :edit }
-        format.json { render json: @report.errors, status: :unprocessable_entity }
+        format.html { redirect_to '/reports/new', notice: 'Erorr.' }
       end
     end
   end
@@ -51,10 +34,4 @@ class ReportsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def report_params
-      params.require(:report).permit(:uid, :body)
-    end
 end

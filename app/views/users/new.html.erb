@@ -1,18 +1,18 @@
 <h1>New User</h1>
 
-<%= form_for(@user) do |f| %>
+<%= form_tag '/users' do %>
   <div class="field">
-    <%= f.label :uid %>
-    <%= f.text_field :uid %>
+    <%= label_tag "User ID" %>
+    <%= text_field_tag :uid %>
   </div>
 
   <div class="field">
-    <%= f.label :bus %>
-    <%= f.text_field :bus%>
+    <%= label_tag :bus %>
+    <%= text_field_tag :bus%>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= submit_tag 'Add' %>
   </div>
 <% end %>
 
