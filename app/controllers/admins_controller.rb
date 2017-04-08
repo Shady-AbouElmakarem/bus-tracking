@@ -1,6 +1,6 @@
 class AdminsController < ApplicationController
-  # before_action :authorize_master_admin, except: [:home, :update]
-  # before_action :authorize_admin, only: [:home, :update]
+  before_action :authorize_master_admin, except: [:home, :update]
+  before_action :authorize_admin, only: [:home, :update]
 
   # GET /admins/home
   def home

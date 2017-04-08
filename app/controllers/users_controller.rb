@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  # before_action :authorize_admin, except: [:home]
-  # before_action :authorize_user, only: [:home]
+  before_action :authorize_admin, except: [:home]
+  before_action :authorize_user, only: [:home]
 
   # GET /users/home
   def home
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @response=firebase.push("/Users",{uid: params[:uid], password: 12345, bus: params[:bus]})
+    @response=firebase.push("/Users",{uid: params[:uid], password: "12345", bus: params[:bus]})
 
     respond_to do |format|
       if @response.success?

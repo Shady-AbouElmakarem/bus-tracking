@@ -27,12 +27,12 @@ Rails.application.routes.draw do
   get '/reports/new' => 'reports#new', as: 'new_report'
   delete '/reports/:id' => 'reports#destroy'
   #Admins Sessions routes
-  get '/admins/login' => 'sessions#new'
-  post '/admins/login' => 'sessions#create'
-  get '/admins/logout' => 'sessions#destroy'
+  get '/admins/login' => 'sessions#new_admin'
+  post '/admins/login' => 'sessions#login_admin'
+  get '/admins/logout' => 'sessions#destroy_admin'
   #Users Sessions routes
   get '/users/login' => 'sessions#new_user'
-  post '/users/login' => 'sessions#create_user'
+  post '/users/login' => 'sessions#login_user'
   get '/users/logout' => 'sessions#destroy_user'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

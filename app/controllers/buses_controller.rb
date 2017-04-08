@@ -1,5 +1,5 @@
 class BusesController < ApplicationController
-  # before_action :authorize_admin
+  before_action :authorize_admin
 
   # GET /buses
   # GET /buses.json
@@ -14,10 +14,16 @@ class BusesController < ApplicationController
   # POST /buses
   # POST /buses.json
   def create
-    @response=firebase.push("/Buses",{number: params[:number], route: params[:route]})
-
+    @response = firebase.push("/Buses",{number: params[:number]})
     respond_to do |format|
       if @response.success?
+        params[:points].each do |index, value|
+          @response2 = firebase.set("/Buses/"+@response.body["name"].to_s+"/point_"+index.to_s, value.to_s)
+          unless @response.success?
+            format.html { redirect_to '/buses/new', notice: 'Error' }
+            break
+          end
+        end
         format.html { redirect_to '/buses/new', notice: 'Bus was successfully created.' }
       else
         format.html { redirect_to '/buses/new', notice: 'Error' }

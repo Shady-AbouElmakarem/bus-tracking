@@ -2,10 +2,10 @@ class SessionsController < ApplicationController
   before_action :logged_user_or_admin, except: [:destroy, :destroy_user]
   before_action :authorize_user, only: [:destroy_user]
   before_action :authorize_admin, only: [:destroy]
-  def new
+  def new_admin
   end
 
-  def create
+  def login_admin
     @admin_id = find_id(firebase.get("/Admins").body,"name",params[:name])
     unless @admin_id == nil
     # If the admin exists AND the password entered is correct.
@@ -22,15 +22,17 @@ class SessionsController < ApplicationController
     end
   end
 
-  def destroy
+  def destroy_admin
    session[:admin_id] = nil
    redirect_to '/admins/login'
   end
 
   def new_user
+
   end
 
-  def create_user
+  def login_user
+
     @user_id = find_id(firebase.get("/Users").body,"uid",params[:uid])
     unless @user_id == nil
       # If the user exists AND the password entered is correct.
@@ -40,10 +42,10 @@ class SessionsController < ApplicationController
         redirect_to '/users/home'
       else
         # If user's login doesn't work, send them back to the login form.
-        redirect_to '/users/login'
+        redirect_to '/users/login', :flash => { :notice => "Wrong User ID or Password" }
       end
     else
-      redirect_to '/users/login'
+      redirect_to '/users/login', :flash => { :notice => "Wrong User ID or Password" }
     end
   end
 

@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  # before_action :authorize_user
+  before_action :authorize_user
 
   # GET /reports
   # GET /reports.json
