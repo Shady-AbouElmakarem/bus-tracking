@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :logged_user_or_admin, except: [:destroy, :destroy_user]
+  before_action :logged_user_or_admin, except: [:destroy_admin, :destroy_user]
   before_action :authorize_user, only: [:destroy_user]
   before_action :authorize_admin, only: [:destroy]
   def new_admin
@@ -23,8 +23,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy_admin
-   session[:admin_id] = nil
-   redirect_to '/admins/login'
+    reset_session
+    @current_admin = nil
+    redirect_to '/admins/login'
   end
 
   def new_user
@@ -50,7 +51,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy_user
-   session[:user_id] = nil
-   redirect_to '/users/login'
+    reset_session
+    @current_user = nil
+    redirect_to '/users/login'
   end
 end

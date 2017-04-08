@@ -1,11 +1,12 @@
-<!-- app/views/sessions/new_users.html.erb -->
+<!-- app/views/sessions/new_user.html.erb -->
 
-<h1>Login</h1>
-
+<div id="login">
 <%= form_tag '/users/login' do %>
-
-  uid: <%= text_field_tag :uid %>
-  Password: <%= password_field_tag :password %>
-  <%= submit_tag "Submit" %>
-
-<% end %>
+  <span class="fontawesome-user"></span>
+  <input type="text" name="uid" id="uid" placeholder="User ID">
+  <span class="fontawesome-lock"></span>
+  <input type="password" name="password" id="password" placeholder="Password">
+  <input type="submit" name="commit" value="Login" data-disable-with="Submit">
+  <% end %>
+<div>
+<link rel="stylesheet" type="text/css" href="/css/login.css">
