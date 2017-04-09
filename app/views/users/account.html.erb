@@ -1,0 +1,43 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>Account Info</h1>
+  <br />
+  <table class="table table-hover">
+    <thead>
+    </thead>
+    <tbody>
+      <tr>
+        <td>User ID</td>
+        <td><%= current_user["uid"] %></td>
+      </tr>
+      <tr>
+        <td>User Bus</td>
+        <td><%= current_user["bus"] %></td>
+      </tr>
+      <tr>
+        <td>Pick Up Location</td>
+        <td><%= current_user["pickUpLocation"] %></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+  <br />
+  <br />
+
+  <section class="content-header">
+    <h1>Change Password</h1>
+    <br />
+
+    <div id="change_password">
+      <%=form_tag "/users/account", :method => :post, :class => 'form-inline'  do %>
+      <div class="form-group">
+        <%= label_tag :new_password, "New Password:"%>
+        <%= password_field_tag :new_password, nil, class:"form-control"%>
+      </div>
+      <%= submit_tag "Apply New Password", class:"btn btn-success" %>
+      <% end %>
+
+
+    </div>
+  </section>

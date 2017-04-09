@@ -1,5 +1,7 @@
 class ReportsController < ApplicationController
-  before_action :authorize_user
+  before_action :authorize_user, only: [:new, :create]
+  before_action :authorize_admin, only: [:index, :destroy]
+
 
   # GET /reports
   # GET /reports.json

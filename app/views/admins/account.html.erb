@@ -1,0 +1,29 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>Account Info</h1>
+</section>
+
+<table class="table table-hover">
+    <thead>
+    </thead>
+    <tbody>
+        <tr>
+          <td>Admin Name</td>
+          <td><%= current_admin["name"] %></td>
+        </tr>
+        <tr>
+          <td>Admin type</td>
+          <td><% current_admin["master"] %></td>
+        </tr>
+
+    </tbody>
+  </table>
+
+
+<div id="change_password">
+  <%= form_tag do %>
+    <%= label_tag(:new_password, "New Password:") %>
+    <%= password_field_tag(:new_password) %>
+    <%= submit_tag("Submit Change") %>
+  <% end %>
+</div>

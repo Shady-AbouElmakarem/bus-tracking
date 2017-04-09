@@ -1,21 +1,24 @@
 Rails.application.routes.draw do
 
+  root 'users#home'
+
   # Admins routes
   get '/admins' => 'admins#index', as: 'admins'
   post '/admins' => 'admins#create'
   get '/admins/new' => 'admins#new', as: 'new_admin'
   delete '/admins/:id' => 'admins#destroy'
   get '/admins/home' => 'admins#home'
-  get '/admins/update' => 'admins#update'
-  post '/admins/update' => 'admins#update'
+  get '/admins/account' => 'admins#account'
+  post '/admins/update' => 'admins#account'
+
   # Users routes
   get '/users' => 'users#index', as: 'users'
   post '/users' => 'users#create'
   get '/users/new' => 'users#new', as: 'new_user'
   delete '/users/:id' => 'users#destroy'
   get '/users/home' => 'users#home'
-  get '/users/update' => 'users#update'
-  post '/users/update' => 'users#update'
+  get '/users/account' => 'users#account'
+  post '/users/account' => 'users#account'
   # Buses routes
   get '/buses' => 'buses#index', as: 'buses'
   post '/buses' => 'buses#create'

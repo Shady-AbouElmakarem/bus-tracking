@@ -1,21 +1,21 @@
 class AdminsController < ApplicationController
-  before_action :authorize_master_admin, except: [:home, :update]
-  before_action :authorize_admin, only: [:home, :update]
+  before_action :authorize_master_admin, except: [:home, :account]
+  before_action :authorize_admin, only: [:home, :account]
 
   # GET /admins/home
   def home
 
   end
 
-  # POST /admins/home
-  def update
+  # GET /admins/account
+  def account
     unless params[:new_password] == nil
-      @response=firebase.update("/Admins/"+session[:admin_id],{password:params[:new_password]})
+      @response=firebase.account("/Admins/"+session[:admin_id],{password:params[:new_password]})
       respond_to do |format|
         if @response.success?
-          format.html { redirect_to '/admins/update', notice: 'Password Changed successfully.' }
+          format.html { redirect_to '/admins/account', notice: 'Password Changed successfully.' }
         else
-          format.html { redirect_to '/admins/update', notice: 'Error.'}
+          format.html { redirect_to '/admins/account', notice: 'Error.'}
         end
       end
     end

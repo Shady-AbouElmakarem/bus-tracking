@@ -2,6 +2,9 @@ class SessionsController < ApplicationController
   before_action :logged_user_or_admin, except: [:destroy_admin, :destroy_user]
   before_action :authorize_user, only: [:destroy_user]
   before_action :authorize_admin, only: [:destroy]
+
+  layout "sessions.html.erb"
+
   def new_admin
   end
 

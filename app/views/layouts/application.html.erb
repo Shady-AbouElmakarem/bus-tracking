@@ -8,16 +8,193 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="skin-green sidebar-mini" style="height: 100vh">
     <% if flash[:notice] %>
       <div class="notice"><%= flash[:notice] %></div>
     <% end %>
-    <%= yield %>
-    <br /><br />
-    <% if current_admin %>
-      Signed in as admin: <%= current_admin["name"] %> | <%= link_to "Logout", '/admins/logout' %>
-    <% elsif current_user %>
-      Signed in as user: <%= current_user["uid"] %> | <%= link_to "Logout", '/users/logout' %>
-    <% end %>
+    <div class="wrapper">
+
+      <!-- Main Header -->
+      <header class="main-header">
+
+        <!-- Logo -->
+        <% if current_admin %>
+          <a href="/admins/home" class="logo">
+        <% elsif current_user %>
+          <a href="/users/home" class="logo">
+        <% end %>
+
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini"><b>O6U </b>BUS</span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg"><b>O6U </b>BUS</span>
+        </a>
+
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+          <!-- Navbar Right Menu -->
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <!-- User Account: style can be found in dropdown.less -->
+              <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <span class="hidden-xs">
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    &nbsp
+                    <% if current_admin %>
+                      <%= current_admin["name"] %>
+                    <% elsif current_user %>
+                      <%= current_user["uid"] %>
+                    <% end %>
+                  </span>
+                </a>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                    <img src="/images/person.png" class="img-circle" alt="User Image">
+                    <p>
+                      <% if current_admin %>
+                        Admin <%= current_admin["name"] %>
+                      <% elsif current_user %>
+                        User <%= current_user["uid"] %>
+                      <% end %>
+                    </p>
+                  </li>
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <% if current_admin %>
+                        <a href="/admins/account" class="btn btn-default btn-flat">Account</a>
+                      <% elsif current_user %>
+                        <a href="/users/account" class="btn btn-default btn-flat">Account</a>
+                      <% end %>
+                    </div>
+                    <div class="pull-right">
+                      <% if current_admin %>
+                        <%= link_to "Sign Out", '/admins/logout', class: "btn btn-default btn-flat"%>
+                      <% elsif current_user %>
+                        <%= link_to "Sign Out", '/users/logout', class: "btn btn-default btn-flat"%>
+                      <% end %>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+          </a>
+        </nav>
+      </header>
+      <!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar">
+
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+
+          <!-- Sidebar Menu -->
+          <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+
+            <% if current_admin %>
+
+              <% if current_admin["master"]=="1" %>
+                <!-- Manage Admins -->
+                <li class="treeview">
+                  <a href="#"><i class="fa fa-circle-o"></i> <span>Manage Admins</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="/admins"><i class="fa fa-link"></i> <span>View Admins List</span></a></li>
+                    <li><a href="/admins/new"><i class="fa fa-link"></i> <span>Add User</span></a></li>
+                  </ul>
+                </li>
+              <% end %>
+
+              <!-- Manage Users -->
+              <li class="treeview">
+                <a href="#"><i class="fa fa-circle-o"></i> <span>Manage Users</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="/users"><i class="fa fa-link"></i> <span>View Users List</span></a></li>
+                  <li><a href="/users/new"><i class="fa fa-link"></i> <span>Add User</span></a></li>
+                </ul>
+              </li>
+
+              <!-- Manage Busses -->
+              <li class="treeview">
+                <a href="#"><i class="fa fa-circle-o"></i> <span>Manage Buses</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="/buses"><i class="fa fa-link"></i> <span>Busses Live Feed</span></a></li>
+                  <li><a href="/buses"><i class="fa fa-link"></i> <span>View Busses List</span></a></li>
+                  <li><a href="/buses/new"><i class="fa fa-link"></i> <span>Add Bus</span></a></li>
+                </ul>
+              </li>
+
+              <!-- See Reports -->
+              <li><a href="/reports"><i class="fa fa-link"></i> <span>View Reports</span></a></li>
+
+            <%elsif current_user%>
+
+            <!-- Show Bus Location -->
+            <li><a href="/users/home"><i class="fa fa-link"></i> <span>Track bus</span></a></li>
+
+            <!-- Send a Report -->
+            <li><a href="/reports/new"><i class="fa fa-link"></i> <span>Report a problem</span></a></li>
+
+            <% end %>
+
+          </ul>
+          <!-- /.sidebar-menu -->
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+
+        <!-- Main content -->
+        <section class="content">
+
+          <%= yield %>
+
+
+        </section>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+
+      <!-- Main Footer -->
+      <footer class="main-footer">
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2069 <a href="#">FTW</a>.</strong> All rights reserved.
+      </footer>
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- REQUIRED JS SCRIPTS -->
+
+    <!-- jQuery 2.2.3 -->
+    <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/app.min.js"></script>
+
+    <!-- Optionally, you can add Slimscroll and FastClick plugins.
+         Both of these plugins are recommended to enhance the
+         user experience. Slimscroll is required when using the
+         fixed layout. -->
+
   </body>
 </html>

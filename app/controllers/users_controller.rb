@@ -1,21 +1,21 @@
 class UsersController < ApplicationController
-  before_action :authorize_admin, except: [:home]
-  before_action :authorize_user, only: [:home]
+  before_action :authorize_admin, except: [:home, :account]
+  before_action :authorize_user, only: [:home, :account]
 
   # GET /users/home
   def home
 
   end
 
-  # POST /admins/home
-  def update
+  # POST /users/account
+  def account
     unless params[:new_password] == nil
       @response=firebase.update("/Users/"+session[:user_id],{password:params[:new_password]})
       respond_to do |format|
         if @response.success?
-          format.html { redirect_to '/users/update', notice: 'Password Changed successfully.' }
+          format.html { redirect_to '/users/account', notice: 'Password Changed successfully.' }
         else
-          format.html { redirect_to '/users/update', notice: 'Error.'}
+          format.html { redirect_to '/users/account', notice: 'Error.'}
         end
       end
     end
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @response=firebase.push("/Users",{uid: params[:uid], password: "12345", bus: params[:bus]})
+    @response=firebase.push("/Users",{uid: params[:uid], password: "12345", bus: params[:bus], pickUpLocation: "29.9760137,30.9476715"})
 
     respond_to do |format|
       if @response.success?
