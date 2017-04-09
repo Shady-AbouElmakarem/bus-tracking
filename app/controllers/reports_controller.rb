@@ -4,7 +4,6 @@ class ReportsController < ApplicationController
 
 
   # GET /reports
-  # GET /reports.json
   def index
     @reports = firebase.get('/Reports').body
   end
@@ -14,9 +13,8 @@ class ReportsController < ApplicationController
   end
 
   # POST /reports
-  # POST /reports.json
   def create
-    @response=firebase.push("/Reports",{uid: current_user, body: params[:body]})
+    @response=firebase.push("/Reports",{uid: current_user["uid"], problem: params[:problem]})
 
     respond_to do |format|
       if @response.success?
@@ -28,12 +26,11 @@ class ReportsController < ApplicationController
   end
 
   # DELETE /reports/1
-  # DELETE /reports/1.json
   def destroy
-    firebase.delete("/Reports/"+params[:id])
-    respond_to do |format|
-      format.html { redirect_to reports_url, notice: 'Report was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+  #   firebase.delete("/Reports/"+params[:id])
+  #   respond_to do |format|
+  #     format.html { redirect_to reports_url, notice: 'Report was successfully destroyed.' }
+  #     format.json { head :no_content }
+  #   end
   end
 end

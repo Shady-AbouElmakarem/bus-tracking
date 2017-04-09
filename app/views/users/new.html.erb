@@ -1,20 +1,41 @@
-<h1>New User</h1>
+<section class="content-header">
+  <h1>New User</h1>
+  <br />
+  <br />
+  <%= form_tag "/users" , id: "contact_form", class: "form-horizontal" do %>
 
-<%= form_tag '/users' do %>
-  <div class="field">
-    <%= label_tag "User ID" %>
-    <%= text_field_tag :uid %>
-  </div>
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-1 ">User ID</label>
+      <div class="col-md-4 inputGroupContainer">
+      <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
+      <input  name="uid" placeholder="User ID Number" class="form-control"  type="number">
+        </div>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= label_tag :bus %>
-    <%= text_field_tag :bus%>
-  </div>
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-1 ">Bus</label>
+      <div class="col-md-4 inputGroupContainer">
+      <div class="input-group">
+      <span class="input-group-addon"><i class="material-icons" style="font-size: 14px">directions_bus</i></span>
+      <input  name="bus" placeholder="Bus Number" class="form-control"  type="text">
+        </div>
+      </div>
+    </div>
 
-  <div class="actions">
-    <%= submit_tag 'Add' %>
-  </div>
-<% end %>
+    <!-- Success message -->
+    <div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.</div>
 
-
-<%= link_to 'Back', users_path %>
+    <!-- Button -->
+    <div class="form-group">
+      <div class="col-md-4">
+        <button type="submit" class="btn btn-success" >Create User </button>
+      </div>
+    </div>
+  <% end %>
+</section>
+<link rel="stylesheet" type="text/css" href="/css/form.css">
+<script type="text/javascript" src="/js/form.js"></script>

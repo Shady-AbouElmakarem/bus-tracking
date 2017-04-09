@@ -1,31 +1,27 @@
-<p id="notice"><%= notice %></p>
+<section class="content-header">
+  <h1>View Users</h1>
+  <br />
+  <table class="table table-hover table-bordered table-striped text-center ">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Password</th>
+        <th>Bus Id</th>
+        <th>Action</th>
+      </tr>
+    </thead>
 
-<h1>View Users</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Uid</th>
-      <th>Password</th>
-      <th>Bus</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% unless @users== nil %>
-      <% @users.each do |user_id, values| %>
-        <tr>
-          <td><%= values["uid"] %></td>
-          <td><%= values["password"] %></td>
-          <td><%= values["bus"] %></td>
-          <td><%= link_to 'Destroy', {:controller => "users", :action => :destroy, :id => user_id },method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+    <tbody>
+      <% unless @users== nil %>
+        <% @users.each do |user_id, values| %>
+          <tr>
+            <td><%= values["uid"] %></td>
+            <td><%= values["password"] %></td>
+            <td><%= values["bus"] %></td>
+            <td><%= link_to 'Remove', {:controller => "users", :action => :destroy, :id => user_id },method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
       <% end %>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New User', new_user_path %>
+    </tbody>
+  </table>
+</section>
