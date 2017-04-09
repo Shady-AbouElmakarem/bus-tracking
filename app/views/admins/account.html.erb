@@ -1,9 +1,8 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>Account Info</h1>
-</section>
-
-<table class="table table-hover">
+  <br />
+  <table class="table table-hover">
     <thead>
     </thead>
     <tbody>
@@ -13,17 +12,30 @@
         </tr>
         <tr>
           <td>Admin type</td>
-          <td><% current_admin["master"] %></td>
+          <td>
+            <% if current_admin["master"] == "1" %>
+              <%="Master"%>
+            <% else %>
+              <%="Team"%>
+            <% end %>
+          </td>
         </tr>
-
     </tbody>
   </table>
+</section>
 
+  <br /><br />
 
-<div id="change_password">
-  <%= form_tag do %>
-    <%= label_tag(:new_password, "New Password:") %>
-    <%= password_field_tag(:new_password) %>
-    <%= submit_tag("Submit Change") %>
-  <% end %>
-</div>
+  <section class="content-header">
+    <h1>Change Password</h1>
+    <br />
+    <div id="change_password">
+      <%=form_tag "/admins/account", :method => :post, :class => 'form-inline'  do %>
+      <div class="form-group">
+        <%= label_tag :new_password, "New Password:"%>
+        <%= password_field_tag :new_password, nil, class:"form-control"%>
+      </div>
+      <%= submit_tag "Apply New Password", class:"btn btn-success" %>
+      <% end %>
+    </div>
+  </section>
