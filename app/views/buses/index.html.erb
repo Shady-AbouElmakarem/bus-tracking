@@ -1,29 +1,34 @@
-<p id="notice"><%= notice %></p>
+<section class="content-header">
+  <h1>View Buses</h1>
+  <br />
+  <table class="table table-hover table-bordered table-striped text-center ">
+    <thead>
+      <tr>
+        <th>Bus Number</th>
+        <th>Route</th>
+        <th>Action</th>
+      </tr>
+    </thead>
 
-<h1>Buses</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Bus ID</th>
-      <th>Route</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% unless @buses== nil %>
-      <% @buses.each do |bus_id, values| %>
+    <tbody>
+      <% unless @buses== nil %>
+        <% @buses.each do |bus_id, bus| %>
         <tr>
-          <td><%= values["number"] %></td>
-          <td><%= values["route"] %></td>
-          <td><%= link_to 'Destroy', {:controller => "buses", :action => :destroy, :id => bus_id },method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= bus["busid"] %></td>
+          <td>
+            <% bus["route"].each_with_index do |location, index |%>
+              <% if (index.to_i+1)%3 == 0%>
+                <%unless index.to_i ==2 %>
+                -
+                <% end %>
+                <%=bus["route"][index.to_i-2]%>
+              <% end %>
+            <% end %>
+          </td>
+          <td><%= link_to 'Remove', {:controller => "buses", :action => :destroy, :id => bus_id },method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
+        <% end %>
       <% end %>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Bus', new_bus_path %>
+    </tbody>
+  </table>
+</section>

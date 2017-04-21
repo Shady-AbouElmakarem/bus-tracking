@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :firebase, :find_id, :current_admin, :current_user
 
   def current_admin
-    @current_admin ||= firebase.get("/Admins/"+session[:admin_id]).body if session[:admin_id]
+    @current_admin ||= firebase.get("/admins/"+session[:admin_id]).body if session[:admin_id]
   end
 
   def authorize_admin
@@ -13,14 +13,14 @@ class ApplicationController < ActionController::Base
 
   def authorize_master_admin
     if current_admin
-      redirect_to '/admins/home' unless current_admin["master"]=="1"
+      redirect_to '/buses/live_feed' unless current_admin["master"]=="1"
     else
       redirect_to '/admins/login'
     end
   end
 
   def current_user
-    @current_user ||= firebase.get("/Users/"+session[:user_id]).body if session[:user_id]
+    @current_user ||= firebase.get("/users/"+session[:user_id]).body if session[:user_id]
   end
 
   def authorize_user
@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
     if current_user
       redirect_to '/users/home'
     elsif current_admin
-      redirect_to '/admins/home'
+      redirect_to '/admins/live_feed'
     end
   end
 

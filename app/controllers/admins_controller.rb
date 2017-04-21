@@ -2,15 +2,10 @@ class AdminsController < ApplicationController
   before_action :authorize_master_admin, except: [:home, :account]
   before_action :authorize_admin, only: [:home, :account]
 
-  # GET /admins/home
-  def home
-
-  end
-
   # GET /admins/account
   def account
     unless params[:new_password] == nil
-      @response=firebase.account("/Admins/"+session[:admin_id],{password:params[:new_password]})
+      @response=firebase.update("/admins/"+session[:admin_id],{password:params[:new_password]})
       respond_to do |format|
         if @response.success?
           format.html { redirect_to '/admins/account', notice: 'Password Changed successfully.' }
@@ -24,7 +19,7 @@ class AdminsController < ApplicationController
   # GET /admins
   # GET /admins.json
   def index
-    @admins=firebase.get('/Admins').body
+    @admins=firebase.get('/admins').body
   end
 
   # GET /admins/new
@@ -34,7 +29,7 @@ class AdminsController < ApplicationController
   # POST /admins
   # POST /admins.json
   def create
-    @response=firebase.push("/Admins",{name: params[:name], password: params[:password], master: params[:master]})
+    @response=firebase.push("/admins",{name: params[:name], password: params[:password], master: params[:master]})
 
     respond_to do |format|
       if @response.success?
@@ -48,10 +43,9 @@ class AdminsController < ApplicationController
   # DELETE /admins/1
   # DELETE /admins/1.json
   def destroy
-    firebase.delete("/Admins/"+params[:id])
+    firebase.delete("/admins/"+params[:id])
     respond_to do |format|
-      format.html { redirect_to admins_url, notice: 'Admin was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to admins_url, notice: 'Admin was successfully Deleted.' }
     end
   end
 end

@@ -7,10 +7,8 @@ Rails.application.routes.draw do
   post '/admins' => 'admins#create'
   get '/admins/new' => 'admins#new', as: 'new_admin'
   delete '/admins/:id' => 'admins#destroy'
-  get '/admins/home' => 'admins#home'
   get '/admins/account' => 'admins#account'
   post '/admins/update' => 'admins#account'
-
   # Users routes
   get '/users' => 'users#index', as: 'users'
   post '/users' => 'users#create'
@@ -22,13 +20,14 @@ Rails.application.routes.draw do
   # Buses routes
   get '/buses' => 'buses#index', as: 'buses'
   post '/buses' => 'buses#create'
+  get '/buses/live' => 'buses#live_feed'
   get '/buses/new' => 'buses#new', as: 'new_bus'
   delete '/buses/:id' => 'buses#destroy'
-  # Reports routes
-  get '/reports' => 'reports#index', as: 'reports'
-  post '/reports' => 'reports#create'
-  get '/reports/new' => 'reports#new', as: 'new_report'
-  delete '/reports/:id' => 'reports#destroy'
+  # complaints routes
+  get '/complaints' => 'complaints#index', as: 'complaints'
+  post '/complaints' => 'complaints#create'
+  get '/complaints/new' => 'complaints#new', as: 'new_complaint'
+  delete '/complaints/:id' => 'complaints#destroy'
   #Admins Sessions routes
   get '/admins/login' => 'sessions#new_admin'
   post '/admins/login' => 'sessions#login_admin'

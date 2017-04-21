@@ -6,14 +6,10 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   </head>
 
-  <body class="skin-green sidebar-mini" style="height: 100vh">
-    <% if flash[:notice] %>
-      <div class="notice"><%= flash[:notice] %></div>
-    <% end %>
+  <body class="skin-green sidebar-mini">
     <div class="wrapper">
 
       <!-- Main Header -->
@@ -97,7 +93,6 @@
 
           <!-- Sidebar Menu -->
           <ul class="sidebar-menu">
-            <li class="header">MAIN NAVIGATION</li>
 
             <% if current_admin %>
 
@@ -116,6 +111,20 @@
                 </li>
               <% end %>
 
+              <!-- Manage Busses -->
+              <li class="treeview">
+                <a href="#"><i class="fa fa-circle-o"></i> <span>Manage Buses</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="/buses/live"><i class="fa fa-link"></i> <span>Buses Live Feed</span></a></li>
+                  <li><a href="/buses"><i class="fa fa-link"></i> <span>View Buses List</span></a></li>
+                  <li><a href="/buses/new"><i class="fa fa-link"></i> <span>Add Bus</span></a></li>
+                </ul>
+              </li>
+
               <!-- Manage Users -->
               <li class="treeview">
                 <a href="#"><i class="fa fa-circle-o"></i> <span>Manage Users</span>
@@ -129,30 +138,16 @@
                 </ul>
               </li>
 
-              <!-- Manage Busses -->
-              <li class="treeview">
-                <a href="#"><i class="fa fa-circle-o"></i> <span>Manage Buses</span>
-                  <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="/buses"><i class="fa fa-link"></i> <span>Busses Live Feed</span></a></li>
-                  <li><a href="/buses"><i class="fa fa-link"></i> <span>View Busses List</span></a></li>
-                  <li><a href="/buses/new"><i class="fa fa-link"></i> <span>Add Bus</span></a></li>
-                </ul>
-              </li>
-
-              <!-- See Reports -->
-              <li><a href="/reports"><i class="fa fa-link"></i> <span>View Reports</span></a></li>
+              <!-- See Complaints -->
+              <li><a href="/complaints"><i class="fa fa-link"></i> <span>View Complaints</span></a></li>
 
             <%elsif current_user%>
 
             <!-- Show Bus Location -->
             <li><a href="/users/home"><i class="fa fa-link"></i> <span>Track bus</span></a></li>
 
-            <!-- Send a Report -->
-            <li><a href="/reports/new"><i class="fa fa-link"></i> <span>Report a problem</span></a></li>
+            <!-- Send a Complaint -->
+            <li><a href="/complaints/new"><i class="fa fa-link"></i> <span>Make a complaint</span></a></li>
 
             <% end %>
 
@@ -167,10 +162,10 @@
 
         <!-- Main content -->
         <section class="content">
-
+          <% if flash[:notice] %>
+            <div class="notice"><%= flash[:notice] %></div>
+          <% end %>
           <%= yield %>
-
-
         </section>
         <!-- /.content -->
       </div>
@@ -186,12 +181,8 @@
 
     <!-- REQUIRED JS SCRIPTS -->
 
-    <!-- jQuery 2.2.3 -->
-    <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <!-- Bootstrap 3.3.6 -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="dist/js/app.min.js"></script>
+    <script src="/js/adminlte.js"></script>
 
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
          Both of these plugins are recommended to enhance the

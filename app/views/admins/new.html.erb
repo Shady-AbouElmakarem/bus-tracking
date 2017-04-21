@@ -2,41 +2,33 @@
   <h1>New Admin</h1>
   <br />
   <br />
-  <%= form_tag "/admins" , id: "contact_form", class: "form-horizontal" do %>
+  <%= form_tag "/admins" , class: "form-horizontal" do %>
           <!-- Text input-->
 
         <div class="form-group">
-          <label class="col-md-2 ">Name</label>
-          <div class="col-md-4 inputGroupContainer">
-          <div class="input-group">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-          <input  name="name" placeholder="Name" class="form-control"  type="text">
-            </div>
+          <label class="control-label col-sm-2" style="text-align: left !important;"for="name">Name:</label>
+          <div class="input-group col-sm-3">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input  name="name" placeholder="Name" class="form-control"  type="text">
           </div>
         </div>
 
         <!-- Password input-->
 
         <div class="form-group">
-          <label class="col-md-2 " >Password</label>
-            <div class="col-md-4 inputGroupContainer">
-            <div class="input-group">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-          <input name="password" placeholder="Password" class="form-control"  type="password">
-            </div>
+          <label class="control-label col-sm-2" style="text-align: left !important;"for="password">Password:</label>
+          <div class="input-group col-sm-3">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <input name="password" placeholder="Password" class="form-control" type="password">
           </div>
         </div>
 
         <!-- Check Box -->
 
         <div class="form-group">
-          <label class="col-md-2 " >Master</label>
-            <div class="col-md-4 inputGroupContainer">
-            <div class="input-group">
-              <div class="checkbox">
-                <label><input name ="master" type="checkbox" value=""></label>
-              </div>
-            </div>
+          <label class="control-label col-sm-2" style="text-align: left !important;"for="master">Master:</label>
+          <div class="col-sm-3 checkbox">
+            <input name ="master" type="checkbox" value="" style="margin-left:0">
           </div>
         </div>
 
@@ -45,6 +37,7 @@
         <div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.</div>
 
         <!-- Button -->
+        <br />
         <div class="form-group">
           <div class="col-md-4">
             <button type="submit" class="btn btn-success" >Create Admin </button>
@@ -53,4 +46,3 @@
       <% end %>
 </section>
 <link rel="stylesheet" type="text/css" href="/css/form.css">
-<script type="text/javascript" src="/js/form.js"></script>

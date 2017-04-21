@@ -9,10 +9,10 @@ class SessionsController < ApplicationController
   end
 
   def login_admin
-    @admin_id = find_id(firebase.get("/Admins").body,"name",params[:name])
+    @admin_id = find_id(firebase.get("/admins").body,"name",params[:name])
     unless @admin_id == nil
     # If the admin exists AND the password entered is correct.
-      @admin = firebase.get("/Admins/"+@admin_id).body
+      @admin = firebase.get("/admins/"+@admin_id).body
       if @admin["password"] == params[:password]
         session[:admin_id] = @admin_id
         redirect_to '/admins'
@@ -37,10 +37,10 @@ class SessionsController < ApplicationController
 
   def login_user
 
-    @user_id = find_id(firebase.get("/Users").body,"uid",params[:uid])
+    @user_id = find_id(firebase.get("/users").body,"uid",params[:uid])
     unless @user_id == nil
       # If the user exists AND the password entered is correct.
-      @user = firebase.get("/Users/"+@user_id).body
+      @user = firebase.get("/users/"+@user_id).body
       if @user["password"] == params[:password]
         session[:user_id] = @user_id
         redirect_to '/users/home'

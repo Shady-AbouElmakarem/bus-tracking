@@ -5,8 +5,8 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>Password</th>
-        <th>Bus Id</th>
+        <th>Bus</th>
+        <th>Pick Up Location</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -16,8 +16,8 @@
         <% @users.each do |user_id, values| %>
           <tr>
             <td><%= values["uid"] %></td>
-            <td><%= values["password"] %></td>
             <td><%= values["bus"] %></td>
+            <td><%= values["pickUpLocation"][0] %></td>
             <td><%= link_to 'Remove', {:controller => "users", :action => :destroy, :id => user_id },method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>

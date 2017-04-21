@@ -1,20 +1,47 @@
-<h1>New Bus</h1>
+<section class="content-header">
+  <h1>New Bus</h1>
+  <br />
+  <br />
+  <%= form_tag "/buses" , class: "form-horizontal" do %>
 
-<%= form_tag "/buses" do %>
-  <div class="field">
-    <%= label_tag :number %>
-    <%= number_field_tag :number%>
-  </div>
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="control-label col-md-2" style="text-align: left !important;"for="busid">Bus Number:</label>
+      <div class="input-group col-md-3">
+        <span class="input-group-addon"><i class="fa fa-bus"></i></span>
+        <input name="busid" placeholder="Bus Number" class="form-control" type="number">
+      </div>
+    </div>
 
-  <div class="field">
-    <%= label_tag "Point 1" %>
-    <%= text_field_tag "points[0]" %>
-  </div>
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="control-label col-md-2" style="text-align: left !important">Pick Up Location(s):</label>
+      <div class="input-group col-md-9">
+        <span class="input-group-addon"><i class="fa fa-map-signs"></i></span>
+        <input  name="locations[]" placeholder="Location Name" class="form-control"  type="text">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
+        <input  name="locations[]" placeholder="Latitude" class="form-control"  type="text">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
+        <input  name="locations[]" placeholder="Logitude" class="form-control"  type="text">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-2"></label></label>
+      <button type="button" id="add_location" class="btn btn-default"><i class="fa fa-plus-circle"></i>&nbsp More</span></button>
+    </div>
 
-  <div class="actions">
-    <%= submit_tag 'Create Bus' %>
-  </div>
-<% end %>
+    <!-- Success message -->
+    <div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.</div>
 
-<%= link_to 'Back', buses_path %>
+    <!-- Button -->
+    <br />
+    <div class="form-group">
+      <div class="col-md-4">
+        <button type="submit" class="btn btn-success" >Create Bus </button>
+      </div>
+    </div>
+  <% end %>
+</section>
+<link rel="stylesheet" type="text/css" href="/css/form.css">
+
 <script type="text/javascript" src="/js/bus.js"></script>

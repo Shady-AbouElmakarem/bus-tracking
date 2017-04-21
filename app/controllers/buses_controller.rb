@@ -1,10 +1,14 @@
 class BusesController < ApplicationController
   before_action :authorize_admin
 
+  # GET /live
+  def live_feed
+    @buses=firebase.get('/buses').body
+  end
+
   # GET /buses
-  # GET /buses.json
   def index
-    @buses=firebase.get('/Buses').body
+    @buses=firebase.get('/buses').body
   end
 
   # GET /buses/new
@@ -12,18 +16,10 @@ class BusesController < ApplicationController
   end
 
   # POST /buses
-  # POST /buses.json
   def create
-    @response = firebase.push("/Buses",{number: params[:number]})
+    @response = firebase.push("/buses",{busid: params[:busid], route: params[:locations]})
     respond_to do |format|
       if @response.success?
-        params[:points].each do |index, value|
-          @response2 = firebase.set("/Buses/"+@response.body["name"].to_s+"/point_"+index.to_s, value.to_s)
-          unless @response.success?
-            format.html { redirect_to '/buses/new', notice: 'Error' }
-            break
-          end
-        end
         format.html { redirect_to '/buses/new', notice: 'Bus was successfully created.' }
       else
         format.html { redirect_to '/buses/new', notice: 'Error' }
@@ -32,12 +28,10 @@ class BusesController < ApplicationController
   end
 
   # DELETE /buses/1
-  # DELETE /buses/1.json
   def destroy
-    firebase.delete("/Buses/"+params[:id])
+    firebase.delete("/buses/"+params[:id])
     respond_to do |format|
-      format.html { redirect_to buses_url, notice: 'Bus was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to buses_url, notice: 'Bus was successfully Deleted.' }
     end
   end
 end

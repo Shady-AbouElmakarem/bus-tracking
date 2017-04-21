@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   # POST /users/account
   def account
     unless params[:new_password] == nil
-      @response=firebase.update("/Users/"+session[:user_id],{password:params[:new_password]})
+      @response=firebase.update("/users/"+session[:user_id],{password:params[:new_password]})
       respond_to do |format|
         if @response.success?
           format.html { redirect_to '/users/account', notice: 'Password Changed successfully.' }
@@ -24,18 +24,20 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users=firebase.get('/Users').body
+    @users=firebase.get('/users').body
   end
 
 
   # GET /users/new
   def new
+    @buses=firebase.get('/buses').body
+
   end
 
   # POST /users
   # POST /users.json
   def create
-    @response=firebase.push("/Users",{uid: params[:uid], password: "12345", bus: params[:bus], pickUpLocation: "29.9760137,30.9476715"})
+    @response=firebase.push("/users",{uid: params[:uid], password: "12345", bus: params[:bus], pickUpLocation: ""})
 
     respond_to do |format|
       if @response.success?
@@ -49,10 +51,9 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    firebase.delete("/Users/"+params[:id])
+    firebase.delete("/users/"+params[:id])
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to users_url, notice: 'User was successfully Deleted.' }
     end
   end
 end

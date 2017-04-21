@@ -1,12 +1,13 @@
 <!-- app/views/sessions/new_admin.html.erb -->
-
 <div id="login">
-<%= form_tag '/admins/login' do %>
-  <span class="fontawesome-user"></span>
-  <input type="text" name="name" id="name" placeholder="name">
-  <span class="fontawesome-lock"></span>
-  <input type="password" name="password" id="password" placeholder="Password">
-  <input type="submit" name="commit" value="Login" data-disable-with="Submit">
+  <% if flash[:notice] %>
+    <div class="notice"><%= flash[:notice] %></div>
+  <% end %>
+  <%= form_tag '/admins/login' do %>
+    <span class="fontawesome-user"></span>
+    <input type="text" name="name" id="name" placeholder="name">
+    <span class="fontawesome-lock"></span>
+    <input type="password" name="password" id="password" placeholder="Password">
+    <input type="submit" name="commit" value="Login" data-disable-with="Submit">
   <% end %>
 <div>
-<link rel="stylesheet" type="text/css" href="/css/login.css">
