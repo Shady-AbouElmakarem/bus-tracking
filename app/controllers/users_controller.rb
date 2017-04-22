@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :authorize_admin, except: [:home, :account]
   before_action :authorize_user, only: [:home, :account]
+  require 'json'
 
   # GET /users/home
   def home
@@ -9,6 +10,7 @@ class UsersController < ApplicationController
 
   # POST /users/account
   def account
+    @buses=firebase.get('/buses').body
     unless params[:new_password] == nil
       @response=firebase.update("/users/"+session[:user_id],{password:params[:new_password]})
       respond_to do |format|
@@ -19,6 +21,17 @@ class UsersController < ApplicationController
         end
       end
     end
+    unless params[:pickUpLocation] == nil
+      @response=firebase.update("/users/"+session[:user_id],{pickUpLocation: JSON.parse(params[:pickUpLocation])})
+      respond_to do |format|
+        if @response.success?
+          format.html { redirect_to '/users/account', notice: 'Pickup Location Changed successfully.' }
+        else
+          format.html { redirect_to '/users/account', notice: 'Error.'}
+        end
+      end
+    end
+
   end
 
   # GET /users
@@ -37,7 +50,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @response=firebase.push("/users",{uid: params[:uid], password: "12345", bus: params[:bus], pickUpLocation: ""})
+    @response=firebase.push("/users",{uid: params[:uid], password: "12345", bus: params[:bus], pickUpLocation: ["","",""] })
 
     respond_to do |format|
       if @response.success?
