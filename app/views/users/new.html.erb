@@ -15,13 +15,24 @@
 
     <!-- Text input-->
     <div class="form-group">
+      <label class="control-label col-md-2" style="text-align: left !important;"for="name">User Name:</label>
+      <div class="input-group col-md-3">
+        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+        <input  name="name" placeholder="User Name" class="form-control"  type="text">
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
       <label class="control-label col-md-2" style="text-align: left !important;"for="bus">Bus:</label>
       <div class="input-group col-md-3">
         <span class="input-group-addon"><i class="fa fa-bus"></i></span>
         <select class="form-control" name="bus">
           <option value="" disabled selected hidden>Select Bus</option>
-          <% @buses.each do |bus_id, bus| %>
-            <option value = '<%= bus["busid"] %>' ><%= bus["busid"] %></option>
+          <% @buses.each_with_index do |value, key| %>
+            <% unless key == 0 %>
+              <option value = '<%= key %>' ><%= key %></option>
+            <% end %>
           <% end %>
         </select>
 

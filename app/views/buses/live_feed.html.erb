@@ -1,13 +1,15 @@
-<div class="box box-solid box-primary text-center">
-  <div class="box-header with-border">
-    <h3 class="box-title">ETA</h3>
-  </div><!-- /.box-header -->
-  <div id="arrival" class="box-body">
-  </div><!-- /.box-body -->
 
+<div id="map" style="height: 80vh;" class="col-xs-12"></div>
+
+<div class="box box-solid box-primary text-center col-md-2" style="height: 40vh; margin: 15px 15px 0 0; padding: 0; position: absolute; z-index: 1; right:0;" class="col-xs-3">
+
+  <div class="box-header with-border">
+    <h3 class="box-title">Filter</h3>
+  </div><!-- /.box-header -->
+
+  <div id="filter" class="box-body">
+  </div><!-- /.box-body -->
 </div><!-- /.box -->
-<div id="map" style="height: 60vh; width: 100%;"></div>
-<!-- <%= link_to "Change password", "update" %> -->
 
 <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
 <script async defer

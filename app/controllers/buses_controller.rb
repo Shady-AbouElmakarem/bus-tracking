@@ -17,7 +17,16 @@ class BusesController < ApplicationController
 
   # POST /buses
   def create
-    @response = firebase.push("/buses",{busid: params[:busid], route: params[:locations]})
+    locations = params[:locations]
+    route = Array.new(locations.length){Hash.new(3)}
+    locations.each_with_index do |location, index|
+      if (index+1)%3==0
+        route[((index.to_i+1)/3)-1]["name"]= locations[index.to_i-2]
+        route[((index.to_i+1)/3)-1]["lat"]= locations[index.to_i-1]
+        route[((index.to_i+1)/3)-1]["lng"]= locations[index.to_i]
+      end
+    end
+    @response = firebase.set("/buses/"+params[:busid], route)
     respond_to do |format|
       if @response.success?
         format.html { redirect_to '/buses/new', notice: 'Bus was successfully created.' }

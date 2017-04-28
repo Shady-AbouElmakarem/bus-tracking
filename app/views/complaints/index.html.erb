@@ -5,7 +5,8 @@
     <thead>
       <tr>
         <th class="col-md-2">User ID</th>
-        <th class="col-md-8">complaint</th>
+        <th class="col-md-6">Complaint</th>
+        <th class="col-md-2">Date</th>
         <% if current_admin["master"]=="1" %>
           <th class="col-md-2">Action</th>
         <% end %>
@@ -18,6 +19,7 @@
           <tr>
             <td><%= values["uid"] %></td>
             <td><%= values["complaint"] %></td>
+            <td><%= Time.at(values["timeStamp"]).strftime("%d/%m/%Y %H:%M") %></td>
             <% if current_admin["master"]=="1" %>
               <td><%= link_to 'Delete', {:controller => "complaints", :action => :destroy, :id => complaint_id },method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <% end %>

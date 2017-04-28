@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   end
 
   def firebase
-    base_uri = 'https://bus-tracking-13c12.firebaseio.com'
+    base_uri = 'https://o6u-bus-tracker-cf9ed.firebaseio.com/'
     firebase = Firebase::Client.new(base_uri)
   end
 

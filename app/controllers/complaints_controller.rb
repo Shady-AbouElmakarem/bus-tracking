@@ -1,6 +1,7 @@
 class ComplaintsController < ApplicationController
   before_action :authorize_user, only: [:new, :create]
   before_action :authorize_admin, only: [:index, :destroy]
+  require 'date'
 
 
   # GET /complaints
@@ -14,8 +15,7 @@ class ComplaintsController < ApplicationController
 
   # POST /complaints
   def create
-    @response=firebase.push("/complaints",{uid: current_user["uid"], complaint: params[:complaint]})
-
+    @response=firebase.push("/complaints",{uid: current_user["uid"], complaint: params[:complaint], timeStamp: Time.now.to_i})
     respond_to do |format|
       if @response.success?
         format.html { redirect_to '/complaints/new', notice: 'complaint was successfully created.' }
