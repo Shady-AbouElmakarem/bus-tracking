@@ -1,3 +1,5 @@
+// choosed time : $('input[name=ampm]:checked').val();
+
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyB-xyrWqgKry9NJuHmZBt557-T5tmxgZbc",
@@ -49,3 +51,14 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, start, e
     }
   });
 }
+
+// Date picker
+$(document).ready(function(){
+   $('.datepicker').datepicker({
+      format: "dd/mm/yyyy",
+      forceParse: false,
+autoclose: true,
+      todayHighlight: true,
+      toggleActive: true
+   });
+ });

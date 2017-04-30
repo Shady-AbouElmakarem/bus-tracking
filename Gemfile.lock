@@ -42,6 +42,8 @@ GEM
     arel (7.1.4)
     autoprefixer-rails (6.7.6)
       execjs
+    bootstrap-datepicker-rails (1.6.4.1)
+      railties (>= 3.0)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -168,6 +170,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap-datepicker-rails
   bootstrap-sass (~> 3.3.6)
   byebug
   coffee-rails (~> 4.2)
