@@ -3,7 +3,7 @@ class BusesController < ApplicationController
 
   # GET /live
   def live_feed
-    @buses=firebase.get('/buses').body
+    @buses=firebase.get('/live').body
   end
 
   # GET /buses

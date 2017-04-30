@@ -32,25 +32,25 @@
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-            <input  name="date" value="live" class="form-control datepicker"  type="text">
+            <input  name="date" value="live" class="form-control datepicker" type="text" disabled>
           </div>
         </div>
 
         <!-- Radio input-->
         <div class="text-center">
           <% if Time.now.strftime("%p") == "AM" %>
-            <div class="radio-inline">
-              <label><input type="radio" value ="am" name="ampm" checked>AM</label>
+            <div class="radio-inline ">
+              <label><input type="radio" value ="am" name="interval" checked disabled>AM</label>
             </div>
-            <div class="radio-inline">
-              <label><input type="radio" value ="pm" name="ampm">PM</label>
+            <div class="radio-inline ">
+              <label><input type="radio" value ="pm" name="interval" disabled>PM</label>
             </div>
           <% else %>
-            <div class="radio-inline">
-              <label><input type="radio" value ="am" name="ampm">AM</label>
+            <div class="radio-inline" disabled>
+              <label><input type="radio" value ="am" name="interval" disabled>AM</label>
             </div>
-            <div class="radio-inline">
-              <label><input type="radio" value ="pm" name="ampm" checked>PM</label>
+            <div class="radio-inline ">
+              <label><input type="radio" value ="pm" name="interval" checked disabled>PM</label>
             </div>
           <% end %>
         </div>

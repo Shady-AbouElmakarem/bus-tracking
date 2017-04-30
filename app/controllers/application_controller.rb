@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def authorize_master_admin
     if current_admin
-      redirect_to '/buses/live_feed' unless current_admin["master"]=="1"
+      redirect_to '/buses/live' unless current_admin["master"]=="1"
     else
       redirect_to '/admins/login'
     end
@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
     if current_user
       redirect_to '/users/home'
     elsif current_admin
-      redirect_to '/admins/live_feed'
+      redirect_to '/buses/live'
     end
   end
 
