@@ -1,14 +1,28 @@
 // Initialize Firebase
 var config = {
-  apiKey: "AIzaSyB-xyrWqgKry9NJuHmZBt557-T5tmxgZbc",
-  authDomain: "bus-tracking-13c12.firebaseapp.com",
-  databaseURL: "https://bus-tracking-13c12.firebaseio.com",
-  storageBucket: "bus-tracking-13c12.appspot.com",
-  messagingSenderId: "148373778365"
+  apiKey: "AIzaSyA3zFJYZMycE1VeKJjxqDYTFZgxfMTwpM8",
+  authDomain: "o6u-bus-tracker-cf9ed.firebaseapp.com",
+  databaseURL: "https://o6u-bus-tracker-cf9ed.firebaseio.com",
+  projectId: "o6u-bus-tracker-cf9ed",
+  storageBucket: "o6u-bus-tracker-cf9ed.appspot.com",
+  messagingSenderId: "652433985052"
 };
 firebase.initializeApp(config);
-var database = firebase.database();
-var ref = firebase.database().ref();
+
+// Initialized variables
+var database = firebase.database(),
+    user = JSON.parse($("#user").val()),
+    pickUpLocationLat = user.pickUpLocation.lat,
+    pickUpLocationLng = user.pickUpLocation.lng,
+    bus = user.bus,
+    busLocationRef = firebase.database().ref("live/" + bus),
+    busLat,
+    busLng,
+    start,
+    end,
+    eta,
+    distance;
+
 // Google Map
 function initMap() {
   var directionsService = new google.maps.DirectionsService;
@@ -17,15 +31,21 @@ function initMap() {
     maxZoom: 19,
     minZoom: 10,
   });
-  ref.on("value", function(snapshot) {
-    var latitude = snapshot.val().gps.latitude;
-    var longitude = snapshot.val().gps.longitude;
-    var start = {lat: latitude,lng: longitude};//
-    // var waypts = [
-    //   {location: {lat: 29.994600,lng: 31.160874}},
-    //   {location: {lat: 29.971552,lng: 31.099567}}
-    // ];
-    var end = {lat:29.9760137,lng:30.9476715};
+  busLocationRef.on("value", function(snapshot) {
+    var timeStamp = 0;
+    busLat = 0;
+    busLng = 0;
+    for (var point in snapshot.val()) {
+      if(snapshot.val()[point].timeStamp >= timeStamp)
+      {
+      timeStamp = snapshot.val()[point].timeStamp;
+      busLat = snapshot.val()[point].lat;
+      busLng = snapshot.val()[point].lng;
+      }
+    }
+
+    start = {lat: parseFloat(pickUpLocationLat),lng: parseFloat(pickUpLocationLng)};
+    end = {lat:busLat,lng:busLng};
     directionsDisplay.setMap(map);
     calculateAndDisplayRoute(directionsService, directionsDisplay, start, end);
   });
@@ -35,14 +55,13 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, start, e
   directionsService.route({
     origin: start,
     destination: end,
-    //waypoints: waypts
     travelMode: 'DRIVING',
     unitSystem: google.maps.UnitSystem.METRIC
   }, function(response, status) {
     if (status === 'OK') {
       directionsDisplay.setDirections(response);
-      var eta = response.routes[0].legs[0].duration.text;
-      var distance = response.routes[0].legs[0].distance.text;
+      eta = response.routes[0].legs[0].duration.text;
+      distance = response.routes[0].legs[0].distance.text;
       $('#arrival').text(distance +" ("+ eta+")");
     } else {
       window.alert('Directions request failed due to ' + status);

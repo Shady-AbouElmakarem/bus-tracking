@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   # GET /users/home
   def home
+    @user= current_user.to_json;
 
   end
 
