@@ -19,7 +19,7 @@
             <td><%= values["uid"] %></td>
             <td><%= values["name"] %></td>
             <td><%= values["bus"] %></td>
-            <td><%= values["pickUpLocation"][0] %></td>
+            <td><%= values["pickUpLocation"]["name"] %></td>
             <td><%= link_to 'Remove', {:controller => "users", :action => :destroy, :id => user_id },method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>

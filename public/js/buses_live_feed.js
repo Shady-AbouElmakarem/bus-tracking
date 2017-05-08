@@ -1,5 +1,4 @@
 // Initialize Firebase
-
 var config = {
   apiKey: "AIzaSyA3zFJYZMycE1VeKJjxqDYTFZgxfMTwpM8",
   authDomain: "o6u-bus-tracker-cf9ed.firebaseapp.com",
@@ -90,7 +89,9 @@ function initMap() {
       }
       else{
         alert('No route found');
-        route.setMap(null);
+        if(route){
+          route.setMap(null);
+        }
         points = [];
 
       }
@@ -163,9 +164,11 @@ function initMap() {
       }
       else{
         alert('No route found');
-        route.setMap(null);
+        if(route){
+          route.setMap(null);
+        }
         points = [];
-        
+
       }
     });
   });
@@ -237,7 +240,9 @@ function initMap() {
         }
         else{
           alert('No route found');
-          route.setMap(null);
+          if(route){
+            route.setMap(null);
+          }
           points = [];
 
         }
