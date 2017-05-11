@@ -8,7 +8,7 @@ $(document).ready(function(){
           <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span> \
           <input  name="locations[]" placeholder="Latitude" class="form-control"  type="text"> \
           <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span> \
-          <input  name="locations[]" placeholder="Logitude" class="form-control"  type="text"> \
+          <input  name="locations[]" placeholder="Longitude" class="form-control"  type="text"> \
           <span class="input-group-addon btn trash"><i class="glyphicon glyphicon-trash	"></i></span> \
         </div> \
       </div>');
