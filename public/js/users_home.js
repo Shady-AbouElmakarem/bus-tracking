@@ -29,7 +29,7 @@ var database = firebase.database(),
 
 
 // Google Map
-function initMap() {
+window.initMap = function(){
   var map = new google.maps.Map(document.getElementById('map'), {
     maxZoom: 19,
     minZoom: 10,

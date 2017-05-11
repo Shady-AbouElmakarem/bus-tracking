@@ -28,7 +28,7 @@ function receivedDate(x){
 
 // Google Maps
 
-function initMap() {
+window.initMap = function(){
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 16,
     maxZoom: 19,
