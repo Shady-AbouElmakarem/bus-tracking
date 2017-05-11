@@ -32,7 +32,7 @@
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-            <input  name="date" value="live" class="form-control datepicker" type="text" disabled>
+            <input  name="date" value = '<%= Time.now.strftime("%d/%m/%Y") %>' class="form-control datepicker" type="text" disabled>
           </div>
         </div>
 
