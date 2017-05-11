@@ -4,9 +4,9 @@
     <div class="notice"><%= flash[:notice] %></div>
   <% end %>
   <%= form_tag '/users/login' do %>
-    <span class="fontawesome-user"></span>
+    <span class="fa fa-user"></span>
     <input type="text" name="uid" id="uid" placeholder="User ID">
-    <span class="fontawesome-lock"></span>
+    <span class="fa fa-lock"></span>
     <input type="password" name="password" id="password" placeholder="Password">
     <input type="submit" value="Login">
   <% end %>
