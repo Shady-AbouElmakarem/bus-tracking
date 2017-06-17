@@ -94,22 +94,18 @@
           <ul class="sidebar-menu">
 
             <% if current_admin %>
-
-              <% if current_admin["master"]=="1" %>
-                <!-- Manage Admins -->
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o"></i> <span>Manage Admins</span>
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="/admins"><i class="fa fa-link"></i> <span>View Admins List</span></a></li>
-                    <li><a href="/admins/new"><i class="fa fa-link"></i> <span>Add Admin</span></a></li>
-                  </ul>
-                </li>
-              <% end %>
-
+              <!-- Manage Admins -->
+              <li class="treeview">
+                <a href="#"><i class="fa fa-circle-o"></i> <span>Manage Admins</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="/admins"><i class="fa fa-link"></i> <span>View Admins List</span></a></li>
+                  <li><a href="/admins/new"><i class="fa fa-link"></i> <span>Add Admin</span></a></li>
+                </ul>
+              </li>
               <!-- Manage Busses -->
               <li class="treeview">
                 <a href="#"><i class="fa fa-circle-o"></i> <span>Manage Buses</span>

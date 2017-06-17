@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       @admin = firebase.get("/admins/"+@admin_id).body
       if @admin["password"] == params[:password]
         session[:admin_id] = @admin_id
-        redirect_to '/admins'
+        redirect_to '/busses/live'
       else
       # If admin's login doesn't work, send them back to the login form.
       redirect_to '/admins/login'

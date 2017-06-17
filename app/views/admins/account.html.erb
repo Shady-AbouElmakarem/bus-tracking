@@ -10,16 +10,6 @@
           <td>Admin Name</td>
           <td><%= current_admin["name"] %></td>
         </tr>
-        <tr>
-          <td>Admin type</td>
-          <td>
-            <% if current_admin["master"] == "1" %>
-              <%="Master"%>
-            <% else %>
-              <%="Team"%>
-            <% end %>
-          </td>
-        </tr>
     </tbody>
   </table>
 </section>

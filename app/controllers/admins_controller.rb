@@ -1,6 +1,5 @@
 class AdminsController < ApplicationController
-  before_action :authorize_master_admin, except: [:home, :account]
-  before_action :authorize_admin, only: [:home, :account]
+  before_action :authorize_admin
 
   # GET /admins/account
   def account
@@ -29,7 +28,7 @@ class AdminsController < ApplicationController
   # POST /admins
   # POST /admins.json
   def create
-    @response=firebase.push("/admins",{name: params[:name], password: params[:password], master: params[:master]})
+    @response=firebase.push("/admins",{name: params[:name], password: params[:password]})
 
     respond_to do |format|
       if @response.success?

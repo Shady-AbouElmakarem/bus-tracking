@@ -5,7 +5,6 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Master</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -15,7 +14,6 @@
         <% @admins.each do |admin_id, values| %>
           <tr>
             <td><%= values["name"] %></td>
-            <td><%= values["master"] %></td>
             <td><%= link_to 'Remove', {:controller => "admins", :action => :destroy, :id => admin_id },method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>

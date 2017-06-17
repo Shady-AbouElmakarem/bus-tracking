@@ -11,14 +11,6 @@ class ApplicationController < ActionController::Base
     redirect_to '/admins/login' unless current_admin
   end
 
-  def authorize_master_admin
-    if current_admin
-      redirect_to '/buses/live' unless current_admin["master"]=="1"
-    else
-      redirect_to '/admins/login'
-    end
-  end
-
   def current_user
     @current_user ||= firebase.get("/users/"+session[:user_id]).body if session[:user_id]
   end
